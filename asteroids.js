@@ -20,13 +20,13 @@ var Asteroids = function(lpcanvas,lpasteroids=40,lpplanets=10,lpstars=200,lpback
 	Asteroids.PlanetsImg.src =  Asteroids.PlanetsImgUrl;
 	//write the stars
 	for (var i = 0; i < Asteroids.StarsCount; i++){
-		Asteroids.StarsList.push({x:Asteroids.Canvas.width * Math.random(),y:Asteroids.Canvas.height * Math.random()});
+		Asteroids.StarsList.push({x:100 * Math.random(),y:100 * Math.random()});
 	};
 	Asteroids.StarsDraw = function(){
 		Asteroids.Context.fillStyle = "rgb(255,255,255)";
 		for (var i= 0;i< Asteroids.StarsList.length;i++) {
 			Asteroids.Context.beginPath();
-			Asteroids.Context.arc(Asteroids.StarsList[i].x, Asteroids.StarsList[i].y, Math.random()*2, 0, Math.PI*2, true);
+			Asteroids.Context.arc(Asteroids.Canvas.width*Asteroids.StarsList[i].x/100, Asteroids.Canvas.height*Asteroids.StarsList[i].y/100, Math.random()*2, 0, Math.PI*2, true);
 			Asteroids.Context.closePath();
 			Asteroids.Context.fill();
 		}
@@ -220,6 +220,19 @@ var Asteroids = function(lpcanvas,lpasteroids=40,lpplanets=10,lpstars=200,lpback
 		});
 	};
 	Asteroids.MousePosition();
+	
+	//Resize window
+	Asteroids.Resize = function(){
+		Asteroids.Canvas.width = window.innerWidth
+		Asteroids.Canvas.height = window.innerHeight
+		window.addEventListener('resize', 
+			function(e){
+				Asteroids.Canvas.width = window.innerWidth
+				Asteroids.Canvas.height = window.innerHeight
+		});
+	};
+	Asteroids.Resize();
+
 	//generate a random color for the asteroids
 	Asteroids.GetRandomColor = function(){
 		var r = 0, g = 0, b = 0;
@@ -251,4 +264,3 @@ var Asteroids = function(lpcanvas,lpasteroids=40,lpplanets=10,lpstars=200,lpback
 	};
 	Asteroids.loop();
 };
-
