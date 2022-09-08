@@ -58,52 +58,32 @@ var Asteroids = function(lpcanvas,lpasteroids,lpplanets=10,lpbackground = "rgb(0
 	Asteroids.Planet = function(){
 		//x2/a2   + y2/b2 = 1 
 		this.Planet = {
-			PosX : 0,
-			PosY :  0,
-			MaxY : ((Asteroids.Canvas.height-200) * Math.random()/2) ,
-			MaxX : 0 ,
 			Radio : Math.round(Math.random()*20 + 15),
 			PlanetaX : Math.round(Math.random()*9),
 			PlanetaY : Math.round(Math.random()*6),
-			ElipX: 0,
-			Rotation : Math.sign(Math.random() - 0.5),
-			ElipY:0
+			PosX : 0,
+			PosY :  0,
+			MaxY : ((Asteroids.Canvas.height-50) * Math.random()/2) +50,
+			MaxX : 0 ,
+			Angulo : Math.round(Math.random()*360),
+			Speed : Math.random()*0.05 + 0.01
 		};
 		this.Planet.MaxX =  (this.Planet.MaxY*100/Asteroids.Canvas.height)*Asteroids.Canvas.width/100
-		this.Planet.PosX = (Asteroids.Canvas.width/2 - this.Planet.MaxX + Asteroids.Canvas.width/2  - this.Planet.MaxX)*Math.random()+this.Planet.MaxX;
-		this.Planet.ElipX = Math.pow((Asteroids.Canvas.width/2 - this.Planet.MaxX),2);
-		this.Planet.ElipY = Math.pow((Asteroids.Canvas.height/2 - this.Planet.MaxY),2);
-		// 1 = x2/a2   +  y2/b2
-		this.Planet.PosY = this.Planet.MaxY;
-		
 		this.Planet.Draw = function() {
-			Asteroids.Context.drawImage(Asteroids.PlanetsImg,this.PlanetaX*38,this.PlanetaY*33,38,33,this.PosX,this.PosY,this.Radio,this.Radio);
+			Asteroids.Context.drawImage(Asteroids.PlanetsImg,this.PlanetaX*38,this.PlanetaY*33,38,33,this.PosX-this.Radio/2,this.PosY-this.Radio/2,this.Radio,this.Radio);
 		}
 		this.Planet.Update = function() {
-			if(this.MaxY > 0){
-				this.PosX =this.PosX + this.Rotation*1;
-				this.PosY = 500;
-				//y = ((1 - x2/a2)*b2)1/2
-				if(this.Rotation==1){
-					this.PosY = Asteroids.Canvas.height/2  + Math.sqrt((1 - (Math.pow(Asteroids.Canvas.width/2 - this.PosX,2)/this.ElipX))*(this.ElipY));
-					
-				}else{
-					this.PosY = Asteroids.Canvas.height/2  - Math.sqrt((1 - (Math.pow(Asteroids.Canvas.width/2 - this.PosX,2)/this.ElipX))*(this.ElipY));
-					
-				}
-				if(this.PosX >= (Asteroids.Canvas.width/2 - this.MaxX)+Asteroids.Canvas.width/2){
-					this.Rotation *= -1;
-				}
-				if(this.PosX <= this.MaxX){
-					this.Rotation *= -1;
-				}
-Asteroids.Context.font = "15px Arial";
-Asteroids.Context.fillText(this.PosX, this.PosX+40, this.PosY);
-Asteroids.Context.fillText(this.PosY, this.PosX+40, this.PosY+15);
-Asteroids.Context.fillText(this.Rotation, this.PosX+40, this.PosY+30);
-Asteroids.Context.fillText(this.ElipX, this.PosX+40, this.PosY+45);
-Asteroids.Context.fillText(this.ElipY, this.PosX+40, this.PosY+60);
+			
+			
+			this.Angulo += this.Speed;
+			if (this.Angulo > 360){
+				this.Angulo = this.Angulo - 360;
 			}
+			
+			this.PosX = Asteroids.Canvas.width/2 + this.MaxX* (Math.cos(this.Angulo*Math.PI/180) )
+			this.PosY = Asteroids.Canvas.height/2 + this.MaxY* (Math.sin(this.Angulo*Math.PI/180) )
+			
+
 		};
 		
 	};
@@ -245,5 +225,7 @@ Asteroids.Context.fillText(this.ElipY, this.PosX+40, this.PosY+60);
  document.getElementById("example2").width = window.innerWidth;
  document.getElementById("example2").height = window.innerHeight;
 
-var asteroides = Asteroids("example2",20,10);
+var asteroides = Asteroids("example2",40,10);
+
+
 
