@@ -7,7 +7,7 @@ El siguiente proyecto recrea una galaxia aleatorea en la que constantemente ingr
 ## Iniciar libreria
 Para iniciar la animación se debe llamar a la funcion "Asteroids"
 
-Asteroids(lpcanvas,lpasteroids=40,lpplanets=10,lpstars=200,lpbackground = "rgb(0,0,0)");
+Asteroids(lpcanvas,lpasteroids,lpplanets,lpstars,lpbackground);
 
 ## Parametros
 ### lpcanvas
