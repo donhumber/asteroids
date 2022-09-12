@@ -202,7 +202,7 @@ var Asteroids = function(lpcanvas,lpasteroids=40,lpplanets=10,lpstars=200,lpback
 	//loop in the canvas
 	Asteroids.MouseDraw = function() {
 		Asteroids.Context.beginPath();
-		Asteroids.Context.fillStyle = "rgba(255,0,0,1)";
+		Asteroids.Context.fillStyle = "rgba(255,0,0,0.4)";
 		Asteroids.Context.arc(Asteroids.Mouse.PosX, Asteroids.Mouse.PosY, 5, 0, Math.PI*2, true);
 		Asteroids.Context.closePath();
 		Asteroids.Context.fill();
