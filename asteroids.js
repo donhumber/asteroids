@@ -1,6 +1,6 @@
 //Created by Donhumber
 //https://garciarussi.com
-var Asteroids = function(lpcanvas,lpasteroids=40,lpplanets=10,lpstars=200,lpbackground = "rgb(0,0,0)"){
+var Asteroids = function(lpcanvas,lpasteroids=40,lpplanets=10,lpstars=200,lpbackground = "rgb(17 24 39)"){
 	//Define library properties
 	this.Asteroids = {
 		Canvas : document.getElementById(lpcanvas),
