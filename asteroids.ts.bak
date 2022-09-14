@@ -80,8 +80,8 @@ class Galaxy {
 	//get the mouse position
 	MousePosition (){
 		window.addEventListener('mousemove',  (e)=> {
-				this.Mouse.PosX = e.x - this._CanvasPosition.left;
-				this.Mouse.PosY = e.y - this._CanvasPosition.top;
+				this.Mouse.PosX = e.x - this.CanvasPosition.left;
+				this.Mouse.PosY = e.y - this.CanvasPosition.top;
 		});
 	};
 	DrawStars (){
@@ -130,9 +130,9 @@ class Galaxy {
 	get PlanetsImg (){
 		return this._PlanetsImg;
 	};
-	
-	
-	
+	get CanvasPosition (){
+		return this._CanvasPosition;
+	};
 };
 
 

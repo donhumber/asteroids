@@ -133,9 +133,6 @@ class Galaxy {
 	get CanvasPosition (){
 		return this._CanvasPosition;
 	};
-	
-	
-	
 };
 
 
@@ -180,26 +177,14 @@ class Planet {
 	Draw(_Galaxy) {
 		_Galaxy.Context.drawImage(_Galaxy.PlanetsImg,this._PlanetaX*38 ,this._PlanetaY*33,38-8,30,this._PosX-this._Radio,this._PosY-this._Radio,this._Radio*2,this._Radio*2);
 	};
-	set PosX (value: number){
-		this._PosX = value;
-	};
 	get PosX (){
 		return this._PosX;
-	};
-	set PosY (value: number){
-		this._PosY = value;
 	};
 	get PosY (){
 		return this._PosY;
 	};
-	set Gravity (value: number){
-		this._Gravity = value;
-	};
 	get Gravity (){
 		return this._Gravity;
-	};
-	set Radio (value: number){
-		this._Radio = value;
 	};
 	get Radio (){
 		return this._Radio;
