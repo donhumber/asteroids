@@ -7,7 +7,7 @@ El siguiente proyecto recrea una galaxia aleatorea en la que constantemente ingr
 ## Iniciar libreria
 Para iniciar la animación se debe llamar a la funcion "Asteroids"
 
-Asteroids(lpcanvas,lpasteroids,lpplanets,lpstars,lpbackground);
+Asteroids(Canvas,Asteroids,Planets,Stars,Background);
 
 ## Parametros
 ### Canvas
@@ -19,4 +19,4 @@ Es opcional, indica cuantos planetas se van a visualizar en la pantalla, por def
 ### Stars
 Es opcional, indica cuantas estrellas se van a visualizar en la pantalla, por defecto se visualizan 200
 ### Background
-Es opcional, indica el color del fondo, por defecto es negro
+Es opcional, indica el color del fondo, por defecto es Azul oscuro rgb(17 24 39)
