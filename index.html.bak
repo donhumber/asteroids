@@ -10,6 +10,6 @@
 <script>
 	document.getElementById("asteroids").width = window.innerWidth;
 	document.getElementById("asteroids").height = window.innerHeight;
-	var asteroides = Asteroids("asteroids",40,10);
+	var asteroides = new Galaxy("asteroids",40,10);
 </script>
 </html>

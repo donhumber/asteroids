@@ -53,8 +53,8 @@ class Galaxy {
         this._Canvas.width = window.innerWidth;
         this._Canvas.height = window.innerHeight;
         window.addEventListener('resize', (e) => {
-            this._Canvas.width = window.innerWidth;
-            this._Canvas.height = window.innerHeight;
+            this.Canvas.width = window.innerWidth;
+            this.Canvas.height = window.innerHeight;
         });
     }
     ;
@@ -76,8 +76,8 @@ class Galaxy {
     ;
     MousePosition() {
         window.addEventListener('mousemove', (e) => {
-            this._Mouse.PosX = e.x - this._CanvasPosition.left;
-            this._Mouse.PosY = e.y - this._CanvasPosition.top;
+            this.Mouse.PosX = e.x - this.CanvasPosition.left;
+            this.Mouse.PosY = e.y - this.CanvasPosition.top;
         });
     }
     ;
@@ -106,6 +106,34 @@ class Galaxy {
         return "rgba(" + r + "," + g + "," + b + ",0.4)";
     }
     ;
+    get Canvas() {
+        return this._Canvas;
+    }
+    ;
+    get Context() {
+        return this._Context;
+    }
+    ;
+    get PlanetsCount() {
+        return this._PlanetsCount;
+    }
+    ;
+    get PlanetsList() {
+        return this._PlanetsList;
+    }
+    ;
+    get Mouse() {
+        return this._Mouse;
+    }
+    ;
+    get PlanetsImg() {
+        return this._PlanetsImg;
+    }
+    ;
+    get CanvasPosition() {
+        return this._CanvasPosition;
+    }
+    ;
 }
 ;
 class Planet {
@@ -131,24 +159,24 @@ class Planet {
         this._Angle = Math.round(Math.random() * 360);
         this._Speed = (_sol) ? 0 : (Math.random() * 0.05 + 0.01);
         this._Index = _Index;
-        this._PMed = (_Galaxy._Canvas.height / 2 - 30) / (_Galaxy._PlanetsCount - 1);
+        this._PMed = (_Galaxy.Canvas.height / 2 - 30) / (_Galaxy.PlanetsCount - 1);
         this._PMax = Math.round(this._PMed * (_Index + 1));
         this._PMin = Math.round(this._PMed * (_Index));
         this._Radio = (_sol) ? 12 : (Math.round(Math.random() * (this._PMed / 10) + this._PMed / 10));
         this._Gravity = (_sol) ? 100 : (this._Radio * 8);
-        this._MaxY = (_sol) ? 0 : (_Galaxy._Canvas.height / 2 - this._PMin + this._Radio + Math.random() * (this._PMed - this._Radio * 2));
-        this._MaxX = (_sol) ? 0 : ((this._MaxY * 100 / (_Galaxy._Canvas.height)) * _Galaxy._Canvas.width / 100);
+        this._MaxY = (_sol) ? 0 : (_Galaxy.Canvas.height / 2 - this._PMin + this._Radio + Math.random() * (this._PMed - this._Radio * 2));
+        this._MaxX = (_sol) ? 0 : ((this._MaxY * 100 / (_Galaxy.Canvas.height)) * _Galaxy.Canvas.width / 100);
         this._PosY = this._MaxY;
     }
     ;
     Update(_Galaxy) {
         this._Angle += ((this._Angle > 359) ? -360 : 0) + this._Speed;
-        this._PosX = _Galaxy._Canvas.width / 2 + this._MaxX * (Math.cos(this._Angle * Math.PI / 180));
-        this._PosY = _Galaxy._Canvas.height / 2 + this._MaxY * (Math.sin(this._Angle * Math.PI / 180));
+        this._PosX = _Galaxy.Canvas.width / 2 + this._MaxX * (Math.cos(this._Angle * Math.PI / 180));
+        this._PosY = _Galaxy.Canvas.height / 2 + this._MaxY * (Math.sin(this._Angle * Math.PI / 180));
     }
     ;
     Draw(_Galaxy) {
-        _Galaxy._Context.drawImage(_Galaxy._PlanetsImg, this._PlanetaX * 38, this._PlanetaY * 33, 38 - 8, 30, this._PosX - this._Radio, this._PosY - this._Radio, this._Radio * 2, this._Radio * 2);
+        _Galaxy.Context.drawImage(_Galaxy.PlanetsImg, this._PlanetaX * 38, this._PlanetaY * 33, 38 - 8, 30, this._PosX - this._Radio, this._PosY - this._Radio, this._Radio * 2, this._Radio * 2);
     }
     ;
     set PosX(value) {
@@ -221,25 +249,25 @@ class Asteroid {
         this._y += this._size * Math.cos(this._angle * (Math.PI / 180));
         this._LastPos.splice(0, 1);
         this._LastPos.push({ x: this._x, y: this._y });
-        this.ValidateCollision(_Galaxy._Mouse, _Galaxy);
-        for (let i = 0; i < _Galaxy._PlanetsList.length; i++) {
-            this.ValidateCollision(_Galaxy._PlanetsList[i], _Galaxy);
+        this.ValidateCollision(_Galaxy.Mouse, _Galaxy);
+        for (let i = 0; i < _Galaxy.PlanetsList.length; i++) {
+            this.ValidateCollision(_Galaxy.PlanetsList[i], _Galaxy);
         }
     }
     ;
     Draw(_Galaxy) {
         for (let i = 0; i < this._LastPos.length; i++) {
-            _Galaxy._Context.beginPath();
-            _Galaxy._Context.fillStyle = this._Color;
-            _Galaxy._Context.arc(this._LastPos[i].x, this._LastPos[i].y, ((i) / 10), 0, Math.PI * 2, true);
-            _Galaxy._Context.closePath();
-            _Galaxy._Context.fill();
+            _Galaxy.Context.beginPath();
+            _Galaxy.Context.fillStyle = this._Color;
+            _Galaxy.Context.arc(this._LastPos[i].x, this._LastPos[i].y, ((i) / 10), 0, Math.PI * 2, true);
+            _Galaxy.Context.closePath();
+            _Galaxy.Context.fill();
         }
     }
     ;
     Deploit(_Galaxy) {
-        this._x = _Galaxy._Canvas.width * Math.random();
-        this._y = _Galaxy._Canvas.height * Math.random();
+        this._x = _Galaxy.Canvas.width * Math.random();
+        this._y = _Galaxy.Canvas.height * Math.random();
         this._xi = 0;
         this._yi = 0;
         this._angle = Math.round(Math.random() * 360);
@@ -299,16 +327,16 @@ class Asteroid {
                 this._x = 0;
                 this._angle += ((this._angle <= 270) ? -90 : 0) + ((this._angle > 270) ? 90 : 0);
             }
-            if (this._x > _Galaxy._Canvas.width) {
-                this._x = _Galaxy._Canvas.width;
+            if (this._x > _Galaxy.Canvas.width) {
+                this._x = _Galaxy.Canvas.width;
                 this._angle += ((this._angle <= 90) ? -90 : 0) + ((this._angle > 90) ? 90 : 0);
             }
             if (this._y < 0) {
                 this._y = 0;
                 this._angle += ((this._angle <= 180) ? -90 : 0) + ((this._angle > 180) ? 90 : 0);
             }
-            if (this._y > _Galaxy._Canvas.height) {
-                this._y = _Galaxy._Canvas.height;
+            if (this._y > _Galaxy.Canvas.height) {
+                this._y = _Galaxy.Canvas.height;
                 this._angle += ((this._angle <= 180) ? +90 : 0) + ((this._angle > 180) ? -90 : 0);
             }
             this._angle += ((this._angle > 360) ? -360 : 0) + ((this._angle < 0) ? +360 : 0);
